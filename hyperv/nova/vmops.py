@@ -150,6 +150,9 @@ class VMOps(object):
     def list_instance_uuids(self):
         instance_uuids = []
         for (instance_name, notes) in self._vmutils.list_instance_notes():
+            if not notes:
+                continue
+            notes =  notes[0].split("#")
             if notes and uuidutils.is_uuid_like(notes[0]):
                 instance_uuids.append(str(notes[0]))
             else:
